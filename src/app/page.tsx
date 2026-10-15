@@ -72,6 +72,20 @@ export default function Home() {
           </div>
         </div>
 
+        <div className={styles.heroFilm} aria-label="Видео о кофе">
+          <video className={styles.heroVideo} autoPlay loop muted playsInline preload="metadata" poster="/hero-coffee.webp" aria-label="Кофейное видео">
+            <source src="/coffee-cinema.mp4" type="video/mp4" />
+          </video>
+          <div className={styles.filmShade} aria-hidden="true" />
+          <div className={styles.filmCaption}><span>КВАРТА · МИНСК</span><strong>У хорошего кофе<br />своё время.</strong></div>
+        </div>
+      </section>
+
+      <section id="constructor" className={styles.builderSection} aria-label="Соберите свой кофейный напиток">
+        <div className={styles.builderSectionIntro}>
+          <span className={styles.kicker}>ИГРА СО ВКУСОМ</span>
+          <p>Попробуйте сочетания и соберите свой напиток.</p>
+        </div>
         <CoffeeBuilder />
       </section>
 
