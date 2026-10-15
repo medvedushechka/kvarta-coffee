@@ -1,0 +1,34 @@
+name: Install supplied coffee video
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/coffee-video.yml"
+permissions:
+  contents: write
+jobs:
+  video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch supplied Pixabay clip
+        run: |
+          curl -fL --retry 4 --retry-delay 2 -A "Mozilla/5.0" "https://pixabay.com/ru/videos/download/video-148148_medium.mp4" -o public/coffee-cinema.mp4
+          file public/coffee-cinema.mp4
+          test "$(stat -c%s public/coffee-cinema.mp4)" -gt 1000000
+          ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 public/coffee-cinema.mp4
+      - name: Commit video
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/coffee-cinema.mp4
+          git diff --cached --quiet && exit 0
+          git commit -m "assets: use chosen Pixabay coffee clip"
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 3
+          done
+          exit 1
