@@ -11,3 +11,7 @@
 .recipeBuild:disabled,.recipeSelect:disabled{opacity:.56;cursor:wait}
 .recipeHelp{font-size:12px;line-height:1.4;color:#647468;margin:8px 0 0}
 @media(max-width:420px){.recipeControls{grid-template-columns:minmax(0,1fr) auto}.recipeSelect{font-size:13px;padding:11px 25px 11px 8px}.recipeBuild{font-size:13px;padding:11px 10px;gap:5px}.recipeHelp{font-size:12px}}
+
+/* Same paper surface as the rest of the site; original cup styling untouched. */
+.builder{background:var(--paper);box-shadow:none;border:1px solid var(--line)}
+.builder:before{display:none}
