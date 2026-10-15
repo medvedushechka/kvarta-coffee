@@ -1,4 +1,4 @@
-name: Install supplied coffee video
+name: Install chosen Pexels coffee video
 on:
   workflow_dispatch:
   push:
@@ -12,9 +12,11 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch supplied Pixabay clip
+      - name: Download selected Pexels video
         run: |
-          curl -fL --retry 4 --retry-delay 2 -A "Mozilla/5.0" "https://pixabay.com/ru/videos/download/video-148148_medium.mp4" -o public/coffee-cinema.mp4
+          python -m pip install --quiet yt-dlp
+          yt-dlp --no-playlist --format 'best[height<=1080][ext=mp4]/best[ext=mp4]/best' --output '/tmp/kvarta-pexels.%(ext)s' 'https://www.pexels.com/video/a-close-up-of-coffee-beans-20534642/'
+          ffmpeg -y -i "$(find /tmp -maxdepth 1 -name 'kvarta-pexels.*' | head -1)" -t 16 -vf "scale='min(1280,iw)':-2" -an -c:v libx264 -preset medium -crf 27 -movflags +faststart public/coffee-cinema.mp4
           file public/coffee-cinema.mp4
           test "$(stat -c%s public/coffee-cinema.mp4)" -gt 1000000
           ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1 public/coffee-cinema.mp4
@@ -24,7 +26,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add public/coffee-cinema.mp4
           git diff --cached --quiet && exit 0
-          git commit -m "assets: use chosen Pixabay coffee clip"
+          git commit -m "assets: use warm Pexels coffee beans clip"
           for attempt in 1 2 3 4 5; do
             git fetch origin main
             git rebase origin/main
