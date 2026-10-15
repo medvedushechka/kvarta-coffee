@@ -4,6 +4,26 @@
 
 Next.js 16 / TypeScript / CSS Modules / Zod / PostgreSQL (Supabase). Без корзины и онлайн-оплаты. Форма отправляет заявку менеджеру для последующего звонка; база хранит заявки.
 
+## Скриншоты сайта
+
+Снимки создаются реальным Chromium через Playwright при запуске GitHub Actions (workflow `Capture website screenshots`).
+
+### Главный экран и конструктор кофе
+
+![Главный экран сайта «Кварта»](docs/screenshots/hero.png)
+
+### Каталог кофе
+
+![Каталог обжарки кофе](docs/screenshots/catalog.png)
+
+### Форма заявки
+
+![Форма заявки с проверкой номера](docs/screenshots/form.png)
+
+### Мобильная версия
+
+![Мобильный вид сайта](docs/screenshots/mobile.png)
+
 ## Локальный запуск
 
 Требуется Node.js 20.9+.
